@@ -25,11 +25,27 @@ guessButton.addEventListener("click", function(e) {
     e.preventDefault();
     const guessInput = userGuess.value;
     console.log(guessInput);
-    userGuess.value = "";
     message.innerText = "";
-    validateGuess(guessInput);
-    makeGuess(guessInput);
+    const accept = validateGuess(guessInput);
+    if (accept) {
+        makeGuess(guessInput);
+    }
+    userGuess.value = "";
 });
+
+guessButton.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        const guessInput = userGuess.value;
+        console.log(guessInput);
+        message.innerText = "";
+        const accept = validateGuess(guessInput);
+        if (accept) {
+            makeGuess(guessInput);
+        }
+        userGuess.value = "";
+    }
+}) 
 
 //To validate guess is only single letter
 const validateGuess = function (input) {
@@ -47,12 +63,49 @@ const validateGuess = function (input) {
     }
 }
 
+//To log user guesses
 const makeGuess = function (letter) {
     letter = letter.toUpperCase();
     if (guessedLetters.includes(letter)) {
         message.innerText = "You already guessed that letter!";
     } else {
         guessedLetters.push(letter);
+        showGuesses(guessedLetters);
+        reveal(guessedLetters);
     }
     console.log(guessedLetters);
+}
+
+//To display user guesses
+const showGuesses = function () {
+    guessed.innerHTML = "";
+    for (const letter of guessedLetters) {
+        const li = document.createElement("li");
+        li.innerText = letter;
+        guessed.append(li);
+    }
+}
+
+//To display correctly guessed letters in secret word
+const reveal = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    const showLetters = [];
+    for (const goodGuess of wordArray) {
+        if (guessedLetters.includes(goodGuess)) {
+            showLetters.push(goodGuess.toUpperCase());
+        } else {
+            showLetters.push("●");
+        }
+        inProgress.innerText = showLetters.join("");
+    }
+    checkWin();
+}
+
+//Check if user won
+const checkWin = function () {
+    if (inProgress.innerText === word.toUpperCase()) {
+        message.classList.add("win");
+        message.innerHTML = `<p class="highlight">YOU WIN!</p>`;
+    }
 }
