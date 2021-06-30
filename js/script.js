@@ -31,6 +31,7 @@ guessButton.addEventListener("click", function(e) {
     makeGuess(guessInput);
 });
 
+//To validate guess is only single letter
 const validateGuess = function (input) {
     const acceptedLetter = /[a-zA-Z]/;
     if (input.length === 0) {
@@ -47,7 +48,7 @@ const validateGuess = function (input) {
 }
 
 const makeGuess = function (letter) {
-    letter.toUpperCase();
+    letter = letter.toUpperCase();
     if (guessedLetters.includes(letter)) {
         message.innerText = "You already guessed that letter!";
     } else {
