@@ -61,7 +61,6 @@ const validateGuess = function (input) {
     const acceptedLetter = /[a-zA-Z]/;
     if (remainingGuesses === 0) {
         message.innerText = `GAME OVER! The secret word was ${word.toUpperCase()}!`;
-        remainInfo.innerText = `Sorry, you've already lost! Click "Play Again" to start a new game!`
     }
     else if (message.classList.contains("win")){
         message.innerHTML = `<p class="highlight">YOU WIN!</p>`;
