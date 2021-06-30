@@ -21,8 +21,7 @@ const dots = function (word) {
 dots(word);
 
 //To submit user guess
-guessButton.addEventListener("click", function(e) {
-    e.preventDefault();
+const submit = function () {
     const guessInput = userGuess.value;
     console.log(guessInput);
     message.innerText = "";
@@ -31,19 +30,17 @@ guessButton.addEventListener("click", function(e) {
         makeGuess(guessInput);
     }
     userGuess.value = "";
+}
+
+guessButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    submit();
 });
 
 guessButton.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         e.preventDefault();
-        const guessInput = userGuess.value;
-        console.log(guessInput);
-        message.innerText = "";
-        const accept = validateGuess(guessInput);
-        if (accept) {
-            makeGuess(guessInput);
-        }
-        userGuess.value = "";
+        submit();
     }
 }) 
 
