@@ -63,6 +63,9 @@ const validateGuess = function (input) {
         message.innerText = `GAME OVER! The secret word was ${word.toUpperCase()}!`;
         remainInfo.innerText = `Sorry, you've already lost! Click "Play Again" to start a new game!`
     }
+    else if (message.classList.contains("win")){
+        message.innerHTML = `<p class="highlight">YOU WIN!</p>`;
+    }
     else if (input.length === 0) {
         message.innerText = "You have to guess something!";
     }
@@ -127,10 +130,10 @@ const guessesLeft = function (guess) {
 
     if (remainingGuesses === 0) {
         message.innerText = `GAME OVER! The secret word was ${word.toUpperCase()}!`;
-        remainInfo.innerText = "";
+        remainInfo.classList.add("hide")
         startOver();
     } else if (remainingGuesses === 1) {
-        remainInfo.innerText = `Think carefully! You only have one guess left!`;
+        remainNum.innerText = `${remainingGuesses} guess`;
     } else {
         remainNum.innerText = `${remainingGuesses} guesses`;
     }
@@ -142,6 +145,7 @@ const checkWin = function () {
     if (inProgress.innerText === word.toUpperCase()) {
         message.classList.add("win");
         message.innerHTML = `<p class="highlight">YOU WIN!</p>`;
+        remainInfo.classList.add("hide");
         startOver();
     }
 }
@@ -154,15 +158,19 @@ const startOver = function () {
 }
 
 playAgain.addEventListener("click", function () {
-    message.classList.remove("win");
+    if (message.classList.contains("win")) {
+        message.classList.remove("win");
+    }
     message.innerText = "";
     guessed.innerText = "";
     remainingGuesses = 8;
+    remainNum.innerText = `${remainingGuesses} guesses`;
     guessedLetters = [];
+
+    getWord();
+
     guessed.classList.remove("hide");
     remainInfo.classList.remove("hide");
-    remainInfo.innerHTML = `<p class="remaining">You have <span>8 guesses</span> remaining.</p>`;
-    getWord();
     playAgain.classList.add("hide");
     guessButton.classList.remove("hide");
 })
