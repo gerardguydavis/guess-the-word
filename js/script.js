@@ -36,7 +36,6 @@ dots(word);
 //To submit user guess
 const submit = function () {
     const guessInput = userGuess.value;
-    console.log(guessInput);
     message.innerText = "";
     const accept = validateGuess(guessInput);
     if (accept) {
@@ -88,7 +87,6 @@ const makeGuess = function (letter) {
         guessesLeft(letter);
         reveal(guessedLetters);
     }
-    console.log(guessedLetters);
 }
 
 //To display user guesses
@@ -158,7 +156,7 @@ const startOver = function () {
 playAgain.addEventListener("click", function () {
     message.classList.remove("win");
     message.innerText = "";
-    guessed.innerHTML = "";
+    guessed.innerText = "";
     remainingGuesses = 8;
     guessedLetters = [];
     guessed.classList.remove("hide");
