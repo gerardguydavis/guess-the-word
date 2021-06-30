@@ -161,6 +161,7 @@ playAgain.addEventListener("click", function () {
     guessed.innerHTML = "";
     remainingGuesses = 8;
     guessedLetters = [];
+    guessed.classList.remove("hide");
     remainInfo.classList.remove("hide");
     remainInfo.innerHTML = `<p class="remaining">You have <span>8 guesses</span> remaining.</p>`;
     getWord();
